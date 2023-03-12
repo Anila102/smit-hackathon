@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const TasksSchema= new Schema({
-    // user:{
-    //     type: mongoose.Schema.Types.ObjectId,        
-    //     ref: 'product'
-    // },
+    user:{
+        type: mongoose.Schema.Types.ObjectId,        
+        ref: 'product'
+    },
     title:{
         type:String,
         required:true

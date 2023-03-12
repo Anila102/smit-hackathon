@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Route to add Products
 
-router.post('/addtasks', fetchuser,
+router.post('/addproducts',
     [
         body('title', "Enter title ").isLength({ min: 3 }),
         body('description', "Enter description ").isLength({ min: 5 }),
@@ -18,7 +18,7 @@ router.post('/addtasks', fetchuser,
     async (req, res) => {
 
         try {
-            const { title, description, tag } = req.body;
+            const { title, description, price,category } = req.body;
             console.log(req.body);
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -26,10 +26,10 @@ router.post('/addtasks', fetchuser,
             }
 
             const products = new Products({
-                title, description, tag, user: req.user.id
+                title, description, price,category:req.user.id
             })
-            const savedTasks = await products.save();
-            res.json(savedTasks);
+            const savedProducts = await products.save();
+            res.json(savedProducts);
 
         } catch (error) {
             console.error(error.message);
