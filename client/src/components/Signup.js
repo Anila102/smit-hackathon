@@ -1,14 +1,17 @@
-import React, { useState,useSelector } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useNavigate  } from 'react-router-dom'
 
 
 const Signup = (props) => {
   const [credentials, setCredentials] = useState({name:"", email: "", password: "" ,cpassword:""})
-  let history = useHistory();
-  const user=useSelector((state)=> state.CREATEUSER)
-  console.log(user)
+  const [selectedOption, setSelectedOption] = useState('');
+  let navigate = useNavigate();
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  }
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     const {name, email, password}=credentials;
      const response = await fetch("http://localhost:5000/api/auth/createuser", {
@@ -17,14 +20,14 @@ const Signup = (props) => {
          headers: {
              'Content-Type': 'application/json'
          },
-         body: JSON.stringify({name, email, password})
+         body: JSON.stringify({name, email, password , role})
      });
      const json = await response.json()
      console.log(json);
 
      if(json.success){
            localStorage.setItem('token', json.authToken); 
-           history.push("/");
+           navigate.push("/");
            props.showAlert("success", "Acoount Created Successfully!")
 
     }
@@ -32,13 +35,10 @@ const Signup = (props) => {
        props.showAlert("danger", "Invalid credentials ")
 
      }
-
      setCredentials({name, email, password})
   }
     
       const onChange=(e)=>{
-    // dispatch(CREATEUSER({ ...credentials, [e.target.name]: e.target.value }))
-
          setCredentials({ ...credentials, [e.target.name]: e.target.value })
       } 
   return <div className="container">
@@ -62,10 +62,26 @@ const Signup = (props) => {
         <label htmlFor="cpassword" className="form-label">Confirm Password</label>
         <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange} minLength={5} required/>
       </div>
+      <div className='d-flex w-50 justify-content-between'>
+        Create Account as: 
+    <label>
+        <input type="radio" value="buyer"  onChange={handleOptionChange} />
+      Buyer
+      </label>
+      <label>
+        <input type="radio" value="seller"  onChange={handleOptionChange} />
+        Seller
+      </label>
+      <label>
+        <input type="radio" value="admin"  onChange={handleOptionChange}  />
+        Admin
+      </label>
+      </div>
+      <button type="submit" className="btn btn-success my-4 d-block">Sign up</button>
 
-      <button type="submit" className="btn btn-dark">Sign up</button>
     </form>
   </div>;
+
 };
 
 export default Signup;
