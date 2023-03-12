@@ -25,6 +25,12 @@ const TasksSchema= new Schema({
         required:true,
         
     },
+    image:{
+        name: String,
+        type: Buffer,
+        required:true,
+        
+    },
     date:{
         type:Date,
         default: Date.now
