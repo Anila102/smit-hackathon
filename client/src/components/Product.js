@@ -11,7 +11,7 @@ export default function (props) {
     <p className="card-text">Price: Rs-{props.price}</p>
     <p className="card-text">Category: {props.category}</p>
 
-    {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+    <button className="btn btn-success">Order</button>
   </div>
 </div>
     </>

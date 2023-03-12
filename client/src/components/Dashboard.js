@@ -46,7 +46,6 @@ export default function Dashboard() {
   <Product
     key={product._id}
     title={product.title}
-    user={product.user}
     description={product.description}
     price={product.price}
     category={product.category}
