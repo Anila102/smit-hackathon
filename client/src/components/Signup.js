@@ -1,19 +1,16 @@
 import React, { useState } from 'react'
-import { useNavigate  } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 const Signup = (props) => {
-  const [credentials, setCredentials] = useState({name:"", email: "", password: "" ,cpassword:""})
-  const [selectedOption, setSelectedOption] = useState('');
+  const [credentials, setCredentials] = useState({name:"", email: "", password: "" ,cpassword:"", role:""})
   let navigate = useNavigate();
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  }
+  
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    const {name, email, password}=credentials;
+    const {name, email, password,role}=credentials;
      const response = await fetch("http://localhost:5000/api/auth/createuser", {
 
          method: 'POST',
@@ -27,7 +24,7 @@ const Signup = (props) => {
 
      if(json.success){
            localStorage.setItem('token', json.authToken); 
-           navigate.push("/");
+           navigate("/login");
            props.showAlert("success", "Acoount Created Successfully!")
 
     }
@@ -62,18 +59,18 @@ const Signup = (props) => {
         <label htmlFor="cpassword" className="form-label">Confirm Password</label>
         <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange} minLength={5} required/>
       </div>
-      <div className='d-flex w-50 justify-content-between'>
+      <div className='d-flex w-50 justify-content-between' onChange={onChange}>
         Create Account as: 
     <label>
-        <input type="radio" value="buyer"  onChange={handleOptionChange} />
+        <input type="radio" value="user" name="role"  />
       Buyer
       </label>
       <label>
-        <input type="radio" value="seller"  onChange={handleOptionChange} />
+        <input type="radio" value="seller" name="role"  />
         Seller
       </label>
       <label>
-        <input type="radio" value="admin"  onChange={handleOptionChange}  />
+        <input type="radio" value="admin"  name="role"   />
         Admin
       </label>
       </div>

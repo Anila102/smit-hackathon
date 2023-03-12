@@ -3,30 +3,29 @@ import { useNavigate  } from 'react-router-dom'
 
 
 const Login = (props) => {
-    const [credentials, setCredentials] = useState({ email: "", password: "" })
+    const [credentials, setCredentials] = useState({ email: "", password: "", role:"" })
     let navigate  = useNavigate();
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+console.log(credentials)
         const response = await fetch("http://localhost:5000/api/auth/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email: credentials.email, password: credentials.password })
+            body: JSON.stringify({ email: credentials.email, password: credentials.password, role:credentials.role })
         });
         const json = await response.json()
         console.log(json);
 
         if(json.success){
             localStorage.setItem('token', json.authToken); 
-     
-
             props.showAlert("success", "Logged In Successfully!")
-            navigate.push("/");
+console.log(credentials)
+navigate("/dashboard");
         }
         else{
             props.showAlert("danger", "Please Enter Correct Credentials ")
@@ -50,18 +49,18 @@ const Login = (props) => {
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type="password" className="form-control" value={credentials.password} onChange={onChange} name="password" id="password" />
                 </div>
-                <div className='d-flex w-50 justify-content-between'>
+                <div className='d-flex w-50 justify-content-between' onChange={onChange} >
         I am a/an:  
     <label>
-        <input type="radio" value="buyer" checked={selectedOption === 'buyer'}  />
+        <input type="radio" value="user" name="role"   />
       Buyer
       </label>
       <label>
-        <input type="radio" value="seller" checked={selectedOption === 'seller'}  />
+        <input type="radio" value="seller" name="role"   />
         Seller
       </label>
       <label>
-        <input type="radio" value="admin" checked={selectedOption === 'admin'}  />
+        <input type="radio" value="admin" name="role" />
         Admin
       </label>
       </div>

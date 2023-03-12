@@ -7,7 +7,7 @@ const Navbar = () => {
 
      const handleLogout=()=>{
          localStorage.removeItem("token")
-         navigate.push("/login")
+         navigate("/login")
 
      }
     let location=useLocation();
@@ -35,8 +35,10 @@ const Navbar = () => {
 
                 <Link style={{borderColor:" white", borderWidth:"0.5px"}} className="btn btn-success mx-1" to="/login" role="button">Login</Link>
                 <Link style={{borderColor:" white", borderWidth:"0.5px"}} className="btn btn-success mx-1" to="/signup" role="button">Signup</Link>
-                </form>: <button onClick={handleLogout} style={{borderColor:" white", borderWidth:"0.5px"}} className="btn btn-success">Logout</button>}
                 <Link style={{borderColor:" white", borderWidth:"0.5px"}} className="btn btn-success mx-1"  role="button">Admin</Link>
+                </form>: <button onClick={handleLogout} style={{borderColor:" white", borderWidth:"0.5px"}} className="btn btn-success">Logout</button> 
+                }
+                
             </div>
         </div>
     </nav>;

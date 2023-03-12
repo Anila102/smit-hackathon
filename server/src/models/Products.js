@@ -28,7 +28,7 @@ const ProductsSchema= new Schema({
     image:{
         name: String,
         type: Buffer,
-        required:true,
+       
     },
     date:{
         type:Date,
