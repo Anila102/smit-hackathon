@@ -15,8 +15,6 @@ router.post('/addproducts',fetchuser,
     [
         body('title', "Enter title ").isLength({ min: 3 }),
         body('description', "Enter description ").isLength({ min: 5 }),
-
-
     ],
     async (req, res) => {
     

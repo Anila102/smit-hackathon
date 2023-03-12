@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const TasksSchema= new Schema({
+const ProductsSchema= new Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,        
         ref: 'product'
@@ -29,11 +29,10 @@ const TasksSchema= new Schema({
         name: String,
         type: Buffer,
         required:true,
-        
     },
     date:{
         type:Date,
         default: Date.now
     }
 });
-module.exports = mongoose.model("products", TasksSchema);
+module.exports = mongoose.model("products", ProductsSchema);
